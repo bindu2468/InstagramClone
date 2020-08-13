@@ -1,11 +1,13 @@
 <resources>
     <string name="app_name">InstagramClone</string>
 
-    <!--fragments-->
+    <!--fragments names-->
     <string name="edit_profile_fragment">Edit Profile</string>
     <string name="sign_out_fragment">Sign Out</string>
     <string name="profile_fragment">Profile Fragment</string>
 
+    <!--Dialog names-->
+    <string name="confirm_password_dialog">ConfirmPasswordDialog</string>
 
     <!--Firebase  Message-->
 
@@ -16,5 +18,17 @@
     
     <string name="dbname_users">users</string>
     <string name="dbname_user_account_settings">user_account_settings</string>
+    <string name="field_username">username</string>
+    <string name="field_email">email</string>
+
+
+    <!---Intent extras -->
+
+    <string name="calling_activity">calling_activity</string>
+
+    <!-- activity names-->
+    <string name="profile_activity">Profile Activity</string>
+    
+    
     
 </resources>

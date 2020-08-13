@@ -61,7 +61,7 @@ public class ProfileFragment  extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView( LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         mDisplayName = (TextView)view.findViewById(R.id.display_name);
         mUsername = (TextView)view.findViewById(R.id.username);
@@ -86,13 +86,26 @@ public class ProfileFragment  extends Fragment {
 
         setupFirebaseAuth();
 
+        TextView editProfile =(TextView)view.findViewById(R.id.textEditProfile);
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG, "onClick: navigating to: " + mContext.getString(R.string.edit_profile_fragment));
+                Intent intent = new Intent(getActivity(), AccountSettingsActivity.class);
+                intent.putExtra(getString(R.string.calling_activity), getString(R.string.profile_activity));
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
 
     private void setProfileWidgets(UserSettings userSettings){
-       // Log.d(TAG, "setProfileWidgets: setting widgets with the data retrieving from firebase database: " + userSettings.toString());
+        // Log.d(TAG, "setProfileWidgets: setting widgets with the data retrieving from firebase database: " + userSettings.toString());
+        // Log.d(TAG, "setProfileWidgets: setting widgets with the data retrieving from firebase database: " + userSettings.getSettings().getUsername());
 
-       // User user = userSettings.getUser();
+
+        // User user = userSettings.getUser();
         UserAccountSettings settings = userSettings.getSettings();
 
         UniversalImageLoader.setImage(settings.getProfile_photo(), mProfilePhoto, null, "");

@@ -44,7 +44,41 @@ public class FirebaseMethods {
         }
     }
 
-    public boolean checkIfUsernameExists(String username, DataSnapshot dataSnapshot){
+    /**
+     * update the username in the 'user's' node and 'user_account_settings' node
+     * @param username
+     */
+    public void updateUsername(String username) {
+        Log.d(TAG, "updateUsername: updating username to: " + username);
+
+        myRef.child(mContext.getString(R.string.dbname_users))
+                .child(userID)
+                .child(mContext.getString(R.string.field_username))
+                .setValue(username);
+
+        myRef.child(mContext.getString(R.string.dbname_user_account_settings))
+                .child(userID)
+                .child(mContext.getString(R.string.field_username))
+                .setValue(username);
+
+    }
+
+    /**
+     * update the email in the 'user's' node
+     * @param email
+     */
+    public void updateEmail(String email) {
+        Log.d(TAG, "updateEmail: updating email to: " + email);
+
+        myRef.child(mContext.getString(R.string.dbname_users))
+                .child(userID)
+                .child(mContext.getString(R.string.field_email))
+                .setValue(email);
+
+    }
+
+
+  /*  public boolean checkIfUsernameExists(String username, DataSnapshot dataSnapshot){
         Log.d(TAG, "checkIfUsernameExists: checking If " + username + "already exists.");
 
         User user = new User();
@@ -61,7 +95,7 @@ public class FirebaseMethods {
             }
         }
         return false;
-    }
+    }*/
 
     /**
      * Register a new email and password to Firebase Authentication.
@@ -207,6 +241,7 @@ public class FirebaseMethods {
                 } catch (NullPointerException e) {
                     Log.e(TAG, "getUserAccountSettings: NullPointerException: " + e.getMessage());
                 }
+            }
 
                 //Users node
                 if (ds.getKey().equals(mContext.getString(R.string.dbname_users))) {
@@ -236,7 +271,6 @@ public class FirebaseMethods {
 
                 }
 
-            }
         }
 
         return new UserSettings(user, settings);

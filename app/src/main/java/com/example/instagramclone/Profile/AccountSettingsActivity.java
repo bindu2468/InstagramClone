@@ -1,6 +1,7 @@
 package com.example.instagramclone.Profile;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,13 +13,22 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.instagramclone.R;
 import com.example.instagramclone.Utilis.BottomNavigationViewHelper;
+import com.example.instagramclone.Utilis.FirebaseMethods;
 import com.example.instagramclone.Utilis.SectionStatePagerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.ArrayList;
@@ -27,8 +37,8 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
     private static final String TAG = "AccountSettingsActivity";
     private Context mContext;
+    private static final int ACTIVITY_NUM = 2;
 
-    private static final int ACTIVITY_NUM =2;
 
     private SectionStatePagerAdapter pagerAdapter;
     private ViewPager mViewPager;
@@ -46,6 +56,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
         setupSettingList();
         setupBottomNavigationView();
         setupFragments();
+        getIncomingIntent();
 
         //setup back Arrow for navigating back to profileActivity
 
@@ -57,6 +68,15 @@ public class AccountSettingsActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void getIncomingIntent(){
+        Intent intent = getIntent();
+
+        if(intent.hasExtra(getString(R.string.calling_activity))){
+            Log.d(TAG, "getIncomingIntent: recieved incoming intent from " + getString(R.string.profile_activity));
+            setViewPager(pagerAdapter.getFragmentNumber(getString(R.string.edit_profile_fragment)));
+        }
     }
 
     private void setupFragments(){
@@ -104,4 +124,5 @@ public class AccountSettingsActivity extends AppCompatActivity {
         menuItem.setChecked(true);
 
     }
+
 }

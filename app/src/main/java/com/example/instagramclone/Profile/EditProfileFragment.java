@@ -189,6 +189,27 @@ public class EditProfileFragment extends Fragment implements
            //              -'fetchProvidersForEmail(string email)'
            //step3: change the email
            //               -submit the new emailto the database and authenticate
+
+       }
+
+       /**
+        * change the rest of the settings that do not require uniqueness
+        */
+       if(!mUserSettings.getSettings().getDisplay_name().equals(displayName)){
+           //update displayName
+           mFirebaseMethods.updateUserAccountSettings(displayName, null, null, 0);
+       }
+       if(!mUserSettings.getSettings().getWebsite().equals(website)){
+           //update website
+           mFirebaseMethods.updateUserAccountSettings( null, website,null, 0);
+       }
+       if(!mUserSettings.getSettings().getDescription().equals(description)){
+           //update description
+           mFirebaseMethods.updateUserAccountSettings( null, null, description,0);
+       }
+       if(!mUserSettings.getSettings().getProfile_photo().equals(phoneNumber)){
+           //update phoneNumber
+           mFirebaseMethods.updateUserAccountSettings(null, null, null, phoneNumber);
        }
    }
 
